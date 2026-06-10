@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PagesToDoRouteImport } from './routes/Pages/ToDo'
+import { Route as PagesKategorienRouteImport } from './routes/Pages/Kategorien'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PagesToDoRoute = PagesToDoRouteImport.update({
+  id: '/Pages/ToDo',
+  path: '/Pages/ToDo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesKategorienRoute = PagesKategorienRouteImport.update({
+  id: '/Pages/Kategorien',
+  path: '/Pages/Kategorien',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/Pages/Kategorien': typeof PagesKategorienRoute
+  '/Pages/ToDo': typeof PagesToDoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/Pages/Kategorien': typeof PagesKategorienRoute
+  '/Pages/ToDo': typeof PagesToDoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/Pages/Kategorien': typeof PagesKategorienRoute
+  '/Pages/ToDo': typeof PagesToDoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/Pages/Kategorien' | '/Pages/ToDo'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/Pages/Kategorien' | '/Pages/ToDo'
+  id: '__root__' | '/' | '/Pages/Kategorien' | '/Pages/ToDo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PagesKategorienRoute: typeof PagesKategorienRoute
+  PagesToDoRoute: typeof PagesToDoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/Pages/ToDo': {
+      id: '/Pages/ToDo'
+      path: '/Pages/ToDo'
+      fullPath: '/Pages/ToDo'
+      preLoaderRoute: typeof PagesToDoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Pages/Kategorien': {
+      id: '/Pages/Kategorien'
+      path: '/Pages/Kategorien'
+      fullPath: '/Pages/Kategorien'
+      preLoaderRoute: typeof PagesKategorienRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PagesKategorienRoute: PagesKategorienRoute,
+  PagesToDoRoute: PagesToDoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

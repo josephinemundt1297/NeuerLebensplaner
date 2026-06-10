@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
-import Sidebar from "../Components/Organism/Sidebar";
+import Sidebar from "./Organism/Sidebar";
 
 export const Route = createRootRoute({
   component: RootComponent,
