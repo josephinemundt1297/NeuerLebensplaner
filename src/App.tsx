@@ -16,6 +16,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      {/*Stellt den Router-Kontext bereit und rendert die aktive Route*/}
     </>
   );
 }
